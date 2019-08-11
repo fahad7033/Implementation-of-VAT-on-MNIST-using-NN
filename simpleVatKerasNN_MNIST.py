@@ -30,44 +30,8 @@ from keras.datasets import mnist
 ############################################################################
 ###########################################################################
 nb_classes =10
-img_rows, img_cols = 28, 28
-
-
-#mydata = datasets.load_digits()
-#trainX = mydata.data
-#trainY = mydata.target
-#n_samples = trainX.shape[0]
-#trainX, trainY = shuffle(trainX, trainY, random_state=0)
-#X_train, Y_train = trainX[:int(.8 * n_samples)], trainY[:int(.8 * n_samples)]
-#X_test, Y_test = trainX[int(.8 * n_samples):], trainY[int(.8 * n_samples):]
-#
-#input_shape = np.shape(X_train)
-#X_train = X_train.astype('float32')
-#X_test = X_test.astype('float32')
-#X_train /= 255.
-#X_test /= 255.
-#
-## convert class vectors to binary class matrices
-#Y_train_cat = np_utils.to_categorical(Y_train, nb_classes)
-#Y_test_cat = np_utils.to_categorical(Y_test, nb_classes)
-
 
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
-
-#X_train = X_train[0:10000,:,:]
-#y_train = y_train[0:10000]
-#X_test = X_test[0:100,:,:]
-#y_test = y_test[0:100]
-
-
-#if K.image_dim_ordering() == 'th':
-#    X_train = X_train.reshape(X_train.shape[0], 1, img_rows, img_cols)
-#    X_test = X_test.reshape(X_test.shape[0], 1, img_rows, img_cols)
-#    input_shape = (1, img_rows, img_cols)
-#else:
-#    X_train = X_train.reshape(X_train.shape[0], img_rows, img_cols, 1)
-#    X_test = X_test.reshape(X_test.shape[0], img_rows, img_cols, 1)
-#    input_shape = (img_rows, img_cols, 1)
 
 X_train = X_train.reshape(60000, 784)
 X_test = X_test.reshape(10000, 784)
@@ -81,35 +45,7 @@ y_test_original = y_test
 # convert class vectors to binary class matrices
 y_train = np_utils.to_categorical(y_train, nb_classes)
 y_test = np_utils.to_categorical(y_test, nb_classes)
-#######################################################################
-#######################################################################
 
-
-
-
-
-
-
-
-### Plot the dataset
-#plt.scatter(X_test[:, 0], X_test[:, 1], c=Y_test, s=20 , cmap='winter'  , edgecolor='none' , alpha=0.005)
-#plt.scatter(X_train[:, 0], X_train[:, 1], c=Y_train, s=20 , cmap='winter'   , edgecolor='k')
-#plt.show()
-
-
-def plot_model_predictions( m ):
-    
-    xx, yy = np.meshgrid(np.arange(-1.4, 1.4, 0.1),
-                         np.arange(-1.8, 1.4, 0.1))
-
-    Z = m.predict(np.c_[xx.ravel(), yy.ravel()]).argmax(-1)
-    Z = Z.reshape(xx.shape)
-
-    plt.contourf(xx, yy, Z, alpha=0.3, cmap='Greens'   )
-    plt.scatter(X_test[:, 0], X_test[:, 1], c=Y_test, s=20 , cmap='winter'  , edgecolor='none' , alpha=0.005)
-    plt.scatter(X_train[:, 0], X_train[:, 1], c=Y_train, s=20 , cmap='winter'   , edgecolor='k')
-    
-    plt.show()
     
     
 ##################################################################
@@ -179,5 +115,4 @@ y_pred  = model_vat.predict( X_test ).argmax(-1)
 print( "Test accruracy " , accuracy_score(y_test_original , y_pred  ))
 
 
-#plot_model_predictions( model_vat  )
 
